@@ -726,7 +726,7 @@ footer { background: var(--ink); color: rgba(255, 255, 255, .5); padding: 4rem 0
   .footer-top { grid-template-columns: 1fr 1fr; }
   .footer-top > div:first-child { grid-column: 1/-1; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  .gal-item-wide { grid-column: span 1; }
+  .gal-wide { grid-column: span 1; }
 }
 @media (max-width: 900px) {
   .nav { padding: 0 1.5rem; }
@@ -754,11 +754,13 @@ footer { background: var(--ink); color: rgba(255, 255, 255, .5); padding: 4rem 0
 }
 @media (max-width: 600px) {
   .sec { padding: 64px 0; }
-  .svc-grid { grid-template-columns: 1fr 1fr; }
+  .svc-grid { grid-template-columns: 1fr; }
   .blog-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 2rem; }
   .footer-top > div:first-child { grid-column: auto; }
-  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .gal-wide, .gal-tall { grid-column: auto; grid-row: auto; }
+  .gal-item { height: 300px; }
 }
 
 /* ---------------------------------------------------------

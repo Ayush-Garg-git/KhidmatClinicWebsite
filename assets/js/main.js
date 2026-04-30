@@ -36,15 +36,17 @@ function initCursor() {
     cursor.style.top = mouseY + 'px';
   });
 
-  // Smooth ring follow
-  function animateRing() {
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
-    ring.style.left = ringX + 'px';
-    ring.style.top = ringY + 'px';
-    requestAnimationFrame(animateRing);
+  // Smooth ring follow - only if hover is supported
+  if (window.matchMedia('(hover: hover)').matches) {
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
   }
-  animateRing();
 
   // Hover states
   document.querySelectorAll('a, button, .svc-card, .nav-brand').forEach(el => {

@@ -1,0 +1,8 @@
+# Security & Cleanliness
+.DS_Store
+Thumbs.db
+.vercel/
+node_modules/
+.env
+.git/
+*.log

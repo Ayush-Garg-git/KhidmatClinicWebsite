@@ -754,7 +754,12 @@ footer { background: var(--ink); color: rgba(255, 255, 255, .5); padding: 4rem 0
 }
 @media (max-width: 600px) {
   .sec { padding: 64px 0; }
-  .svc-grid { grid-template-columns: 1fr; }
+  .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .svc-card { padding: 1.5rem 1rem; text-align: center; }
+  .svc-icon { width: 40px; height: 40px; margin: 0 auto 1rem; }
+  .svc-name { font-size: 0.9rem; }
+  .svc-desc, .svc-read { display: none; } /* Hide for concise mobile view */
+  
   .blog-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 2rem; }
   .footer-top > div:first-child { grid-column: auto; }

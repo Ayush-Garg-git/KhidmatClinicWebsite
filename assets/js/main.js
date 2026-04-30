@@ -189,15 +189,23 @@ function initStats() {
   document.querySelectorAll('.count-up').forEach(el => observer.observe(el));
 
   function animateValue(el) {
-    const target = parseInt(el.textContent);
+    const target = parseInt(el.dataset.target);
+    if (isNaN(target)) return;
     let start = 0;
     const duration = 2000;
     const step = (ts) => {
       if (!start) start = ts;
       const progress = Math.min((ts - start) / duration, 1);
-      el.textContent = Math.floor(progress * target);
+      const current = Math.floor(progress * target);
+      
+      if (target >= 1000) {
+        el.textContent = (current / 1000).toFixed(progress < 1 ? 1 : 0) + 'K+';
+      } else {
+        el.textContent = current;
+      }
+      
       if (progress < 1) requestAnimationFrame(step);
-      else el.textContent = target + (el.textContent.includes('+') ? '' : '');
+      else el.textContent = (target >= 1000 ? (target/1000)+'K+' : target);
     };
     requestAnimationFrame(step);
   }

@@ -17,40 +17,65 @@ const D={
 'family':{eye:'Family Health',title:'Family Planning',tag:'Informed, confidential guidance so you can make the right choices for your body and your family.',icon:'<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 21 2c-2.5 4-3 5.5-4.1 11.2A7 7 0 0 1 11 20Z"/><path d="M11 13a4 4 0 0 0-4 4M11 20l1-5"/>',img:'assets/images/desk-consultation.jpeg',stats:[['Private','Consultation'],['12+','Years Exp']],intro:'Empowerment begins with control over your own health. We provide informed, confidential and non-judgmental family planning services for every stage and situation in life.',sh:'Our Planning Services',feats:[[I.chk,'Contraception Counselling','Finding the method that truly fits your life, health and long-term goals.'],[I.shd,'Long-Term Options','IUD / Copper-T and other reliable, reversible methods with full guidance.'],[I.hrt,'Permanent Solutions','Honest guidance on tubal ligation, its procedure, implications and recovery.'],[I.str,'Pre-Conception Advice','Preparing your body, nutrition and health for a future healthy pregnancy.']],closing:'Informed choices lead to healthier futures. Come in for a private, judgment-free conversation.',ctaT:'Plan your future with confidence.',ctaS:'All consultations are completely confidential.',ctaB:'Book Planning Session'}
 };
 
-function svg(path){return`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;}
-function feat(f){return`<div class="svc-feat"><div class="svc-feat-ico">${svg(f[0])}</div><div class="svc-feat-body"><strong>${f[1]}</strong><span>${f[2]}</span></div></div>`;}
-function stat(s){return`<div class="svc-stat-big"><div class="svc-stat-big-n">${s[0]}</div><div class="svc-stat-big-l">${s[1]}</div></div>`;}
+const WA_SVG=`<svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+const PH_SVG=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
+
+function svg(p){return`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;}
+function numItem(f,i){return`<div class="svc-num-item"><div class="svc-num">0${i+1}</div><div class="svc-num-body"><strong>${f[1]}</strong><span>${f[2]}</span></div></div>`;}
+function sumStat(s){return`<div class="svc-sum-stat"><div class="svc-sum-stat-n">${s[0]}</div><div class="svc-sum-stat-l">${s[1]}</div></div>`;}
+function faqItem(f){return`<div class="svc-faq-item"><div class="svc-faq-q">${f[0]}</div><div class="svc-faq-a">${f[1]}</div></div>`;}
+const TRUST=['24&#215;7 Emergency Available','Experienced Female Specialist','&#8377;500 Consultation Only','M.D. Hamdard University, Delhi'];
 
 function render(id){
   const d=D[id];if(!d)return;
   const el=document.getElementById('page-svc-'+id);
   if(!el||el.dataset.rendered)return;
   el.dataset.rendered='1';
-  const faqs=(d.faqs||[]).map(f=>`<div class="svc-mfaq-item"><div class="svc-mfaq-q">${f[0]}</div><div class="svc-mfaq-a">${f[1]}</div></div>`).join('');
+  const faqs=(d.faqs||[]).map(faqItem).join('');
   el.innerHTML=`<div class="pb">
-<div class="svc-ph"><div class="svc-page-wrap"><div class="svc-ph-inner">
-  <div class="svc-ph-icon">${svg(d.icon)}</div>
-  <div class="svc-ph-text">
-    <div class="eyebrow">${d.eye}</div>
-    <h1>${d.title}</h1>
-    <p>${d.tag}</p>
+<div class="svc-header"><div class="svc-page-wrap">
+  <div class="svc-header-inner">
+    <div class="svc-header-left">
+      <div class="svc-back" onclick="go('home')">Back to Services</div>
+      <div class="svc-eyebrow-tag"><div class="svc-eyebrow-tag-dot"></div><span>${d.eye}</span></div>
+      <h1 class="svc-header-title">${d.title}</h1>
+      <p class="svc-header-tag">${d.tag}</p>
+    </div>
+    <div class="svc-header-icon-wrap">${svg(d.icon)}</div>
   </div>
-</div></div></div>
+</div></div>
 <section class="svc-body"><div class="svc-page-wrap">
-  <div style="margin-bottom:1.5rem"><div class="back-btn" onclick="go('home')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;">&#8592; Back to Services</div></div>
-  <div class="svc-lead"><p>${d.intro}</p></div>
-  <div class="svc-section-title">${d.sh}</div>
-  <div class="svc-feat-grid">${d.feats.map(feat).join('')}</div>
-  <div class="svc-stats-bar">${d.stats.map(stat).join('')}</div>
-  ${d.who?`<div class="svc-who"><div class="svc-who-icon">&#9670;</div><div><h3>Who is this for?</h3><p>${d.who}</p></div></div>`:''}
-  ${faqs?`<div class="svc-section-title" style="margin-top:0">Common Questions</div><div class="svc-mini-faq">${faqs}</div>`:''}
-  <div class="svc-cta-bar">
-    <div><h3>${d.ctaT}</h3><p>${d.ctaS}</p></div>
-    <div class="svc-cta-bar-acts">
-      <a href="${WA}" target="_blank" class="btn btn-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>${d.ctaB}</a>
-      <a href="tel:+919006781087" class="btn btn-white"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call Now</a>
+  <div class="svc-two-col">
+    <div class="svc-content-left">
+      <p class="svc-content-intro">${d.intro}</p>
+      <h2 class="svc-content-h2">${d.sh}</h2>
+      <div class="svc-num-list">${d.feats.map(numItem).join('')}</div>
+      ${faqs?`<div class="svc-faq-block"><h2 class="svc-content-h2">Common Questions</h2>${faqs}</div>`:''}
+    </div>
+    <div class="svc-summary-card">
+      <div class="svc-summary-top">
+        <div class="svc-summary-top-label">At a Glance</div>
+        <div class="svc-summary-top-title">${d.title}</div>
+      </div>
+      <div class="svc-summary-body">
+        <div class="svc-summary-stats">${d.stats.map(sumStat).join('')}</div>
+        <div class="svc-summary-divider"></div>
+        <div class="svc-summary-trust">${TRUST.map(t=>`<div class="svc-summary-trust-item">${t}</div>`).join('')}</div>
+        <div class="svc-summary-divider"></div>
+        <div class="svc-summary-cta">
+          <a href="${WA}" target="_blank" class="btn btn-wa">${WA_SVG}Book on WhatsApp</a>
+          <a href="tel:+919006781087" class="btn btn-white">${PH_SVG}Call Now</a>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="svc-cta-bar"><div class="svc-cta-inner">
+    <div><h3>${d.ctaT}</h3><p>${d.ctaS}</p></div>
+    <div class="svc-cta-acts">
+      <a href="${WA}" target="_blank" class="btn btn-wa">${WA_SVG}${d.ctaB}</a>
+      <a href="tel:+919006781087" class="btn btn-white">${PH_SVG}Call Now</a>
+    </div>
+  </div></div>
 </div></section></div>`;
 }
 

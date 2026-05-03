@@ -876,18 +876,42 @@ body {
 }
 @media (max-width: 600px) {
   .sec { padding: 64px 0; }
-  .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  .svc-card { padding: 1.5rem 1rem; text-align: center; }
-  .svc-icon { width: 40px; height: 40px; margin: 0 auto 1rem; }
-  .svc-name { font-size: 0.9rem; }
-  .svc-desc, .svc-read { display: none; } /* Hide for concise mobile view */
+  .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .svc-card { padding: 1.25rem 1rem; text-align: center; }
+  .svc-icon { width: 36px; height: 36px; margin: 0 auto .75rem; }
+  .svc-name { font-size: .88rem; }
+  .svc-desc { font-size: .68rem; line-height: 1.45; }
+  .svc-read { font-size: .6rem !important; }
   
   .blog-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 2rem; }
   .footer-top > div:first-child { grid-column: auto; }
-  .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 160px; }
   .gal-wide, .gal-tall { grid-column: auto; grid-row: auto; }
-  .gal-item { height: 300px; }
+  .gal-item { height: auto; }
+  .about-badge { left: 0; top: 1.5rem; }
+  .appt-left { padding: 2.5rem 1.25rem; }
+  .appt-right { padding: 1.5rem 1rem; }
+  .appt-card { padding: 1.75rem 1.25rem; }
+  .cta-text h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+  .hero-stats { grid-template-columns: repeat(3, 1fr); }
+  .hstat { padding: .85rem .5rem; }
+  .hstat-n { font-size: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: clamp(2.4rem, 9vw, 3.2rem); }
+  .hero-actions { flex-direction: column; align-items: center; }
+  .hero-actions .btn { width: 100%; justify-content: center; max-width: 280px; }
+  .hero-right { min-height: 320px; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+  .faq-prev-grid { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .wrap, .wrap-sm { padding: 0 1rem; }
+  .nav { padding: 0 1rem; }
+  .nav-brand-main { font-size: .95rem; }
+  .f-bottom { flex-direction: column; text-align: center; }
 }
 
 /* ---------------------------------------------------------

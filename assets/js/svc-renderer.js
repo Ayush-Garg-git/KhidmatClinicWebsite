@@ -1,4 +1,4 @@
-﻿(function(){
+(function(){
 const WA='https://wa.me/919006781087?text=Hello%20Dr.%20Shazia%2C%20I%20would%20like%20to%20book%20an%20appointment.';
 const I={chk:'<polyline points="20 6 9 17 4 12"/>',hrt:'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',shd:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',usr:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',clk:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',str:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',inf:'<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'};
 const TR=['24&#215;7 Emergency Available','Experienced Female Specialist','&#8377;500 Consultation Only','M.D. Hamdard University, Delhi'];
@@ -19,13 +19,14 @@ const D={
 
 function svg(path){return`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;}
 function feat(f){return`<div class="svc-feat"><div class="svc-feat-ico">${svg(f[0])}</div><div class="svc-feat-body"><strong>${f[1]}</strong><span>${f[2]}</span></div></div>`;}
-function stat(s){return`<div class="svc-stat-chip"><div class="svc-stat-chip-n">${s[0]}</div><div class="svc-stat-chip-l">${s[1]}</div></div>`;}
+function stat(s){return`<div class="svc-stat-big"><div class="svc-stat-big-n">${s[0]}</div><div class="svc-stat-big-l">${s[1]}</div></div>`;}
 
 function render(id){
   const d=D[id];if(!d)return;
   const el=document.getElementById('page-svc-'+id);
   if(!el||el.dataset.rendered)return;
   el.dataset.rendered='1';
+  const faqs=(d.faqs||[]).map(f=>`<div class="svc-mfaq-item"><div class="svc-mfaq-q">${f[0]}</div><div class="svc-mfaq-a">${f[1]}</div></div>`).join('');
   el.innerHTML=`<div class="pb">
 <div class="svc-ph"><div class="svc-page-wrap"><div class="svc-ph-inner">
   <div class="svc-ph-icon">${svg(d.icon)}</div>
@@ -36,23 +37,13 @@ function render(id){
   </div>
 </div></div></div>
 <section class="svc-body"><div class="svc-page-wrap">
-  <div class="svc-body-grid">
-    <div class="svc-body-left">
-      <div class="back-btn" onclick="go('home')" style="cursor:pointer">&#8592; Back to Services</div>
-      <p class="svc-intro">${d.intro}</p>
-      <div class="svc-section-title">${d.sh}</div>
-      <div class="svc-features">${d.feats.map(feat).join('')}</div>
-      <p class="svc-closing">${d.closing}</p>
-    </div>
-    <div class="svc-body-right">
-      <div class="svc-img-wrap"><img src="${d.img}" alt="${d.title}, Khidmat Healthcare Purnia" loading="lazy"></div>
-      <div class="svc-stats-row">${d.stats.map(stat).join('')}</div>
-      <div class="svc-trust-strip">
-        <div class="svc-trust-strip-title">Why Patients Trust Us</div>
-        ${TR.map(t=>`<div class="svc-trust-item">${t}</div>`).join('')}
-      </div>
-    </div>
-  </div>
+  <div style="margin-bottom:1.5rem"><div class="back-btn" onclick="go('home')" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;">&#8592; Back to Services</div></div>
+  <div class="svc-lead"><p>${d.intro}</p></div>
+  <div class="svc-section-title">${d.sh}</div>
+  <div class="svc-feat-grid">${d.feats.map(feat).join('')}</div>
+  <div class="svc-stats-bar">${d.stats.map(stat).join('')}</div>
+  ${d.who?`<div class="svc-who"><div class="svc-who-icon">&#9670;</div><div><h3>Who is this for?</h3><p>${d.who}</p></div></div>`:''}
+  ${faqs?`<div class="svc-section-title" style="margin-top:0">Common Questions</div><div class="svc-mini-faq">${faqs}</div>`:''}
   <div class="svc-cta-bar">
     <div><h3>${d.ctaT}</h3><p>${d.ctaS}</p></div>
     <div class="svc-cta-bar-acts">

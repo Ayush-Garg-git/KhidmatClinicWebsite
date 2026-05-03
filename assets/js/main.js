@@ -117,9 +117,11 @@ function initNavigation() {
   }
 
   // Global Routing Function
-  window.go = function(id) {
+  function navigateTo(id, pushState = true) {
     const target = document.getElementById('page-' + id);
     if (!target) return;
+
+    if (pushState) history.pushState({ page: id }, '', '#' + id);
 
     if (overlay) overlay.classList.add('active');
 
@@ -128,22 +130,29 @@ function initNavigation() {
       target.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      // Move footer to the new page
       const footer = document.getElementById('footer');
       const pb = target.querySelector('.pb');
       if (footer && pb) pb.appendChild(footer);
 
-      // Update active nav links
       document.querySelectorAll('.nav-links a').forEach(a => {
         a.classList.toggle('active', a.getAttribute('onclick')?.includes(id));
       });
 
       if (overlay) overlay.classList.remove('active');
-      
-      // Re-trigger reveal animations for the new page
       setTimeout(initReveal, 50);
-    }, 500);
-  };
+    }, 300);
+  }
+
+  window.go = function(id) { navigateTo(id, true); };
+
+  // Browser back / forward
+  window.addEventListener('popstate', e => {
+    const id = e.state?.page || 'home';
+    navigateTo(id, false);
+  });
+
+  // Set initial history state
+  history.replaceState({ page: 'home' }, '', '#home');
 }
 
 /* ---------------------------------------------------------

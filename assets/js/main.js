@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initStats();
   initHeroParticles();
   initFAQ();
+  initLikes();
+  if (document.getElementById('photoTestiSlider')) {
+    goToPts(0);
+  }
   
   // Initial footer placement
   const homePb = document.querySelector('#page-home .pb');
@@ -255,4 +259,107 @@ if (window.matchMedia('(hover:none)').matches) {
   const ring = document.querySelector('.cursor-ring');
   if (cursor) cursor.remove();
   if (ring) ring.remove();
+}
+
+/* ---------------------------------------------------------
+   LIKE SYSTEM
+--------------------------------------------------------- */
+function initLikes() {
+  const cards = document.querySelectorAll('.svc-card, .testi-card, .photo-testi-card');
+  
+  cards.forEach((card, index) => {
+    // Unique ID for each card based on index and context
+    const isSvc = card.classList.contains('svc-card');
+    const isPhoto = card.classList.contains('photo-testi-card');
+    const prefix = isSvc ? 'svc_' : (isPhoto ? 'photo_' : 'testi_');
+    const cardId = 'khid_like_' + prefix + index;
+    
+    // Base count (random between 100 and 200, seeded once)
+    let baseCount = localStorage.getItem(cardId + '_base');
+    if (!baseCount) {
+      baseCount = Math.floor(Math.random() * 101) + 100;
+      localStorage.setItem(cardId + '_base', baseCount);
+    } else {
+      baseCount = parseInt(baseCount);
+    }
+    
+    // Check local storage for like state
+    let isLiked = localStorage.getItem(cardId + '_liked') === 'true';
+    
+    // Create button
+    const btn = document.createElement('button');
+    btn.className = 'like-btn' + (isLiked ? ' liked' : '');
+    btn.setAttribute('aria-label', 'Like');
+    
+    btn.innerHTML = `
+      <svg viewBox="0 0 24 24" class="like-icon" fill="none" stroke="currentColor">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      <span class="like-count">${baseCount + (isLiked ? 1 : 0)}</span>
+    `;
+    
+    // Click Event
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation(); // Prevents card's onclick from triggering
+      
+      isLiked = !isLiked;
+      localStorage.setItem(cardId + '_liked', isLiked);
+      
+      const countSpan = btn.querySelector('.like-count');
+      if (isLiked) {
+        btn.classList.add('liked');
+        countSpan.textContent = baseCount + 1;
+      } else {
+        btn.classList.remove('liked');
+        countSpan.textContent = baseCount;
+      }
+    });
+    
+    card.appendChild(btn);
+  });
+}
+
+/* ---------------------------------------------------------
+   PHOTO TESTIMONIAL SLIDER
+--------------------------------------------------------- */
+let currentPts = 0;
+window.movePts = function(dir) {
+  const slider = document.getElementById('photoTestiSlider');
+  if (!slider) return;
+  const slides = slider.querySelectorAll('.photo-testi-slide');
+  currentPts += dir;
+  if (currentPts < 0) currentPts = slides.length - 1;
+  if (currentPts >= slides.length) currentPts = 0;
+  goToPts(currentPts);
+}
+
+window.goToPts = function(index) {
+  const slider = document.getElementById('photoTestiSlider');
+  if (!slider) return;
+  currentPts = index;
+  slider.style.transform = `translateX(-${index * 100}%)`;
+  
+  const slides = slider.querySelectorAll('.photo-testi-slide');
+  slides.forEach((slide, i) => {
+    if (i === index) {
+      slide.style.opacity = '1';
+      slide.style.transform = 'scale(1) translateY(0)';
+      slide.style.filter = 'blur(0px)';
+    } else {
+      slide.style.opacity = '0.4';
+      slide.style.transform = 'scale(0.92) translateY(20px)';
+      slide.style.filter = 'blur(4px)';
+    }
+  });
+  
+  document.querySelectorAll('#ptsDots .pts-dot').forEach((dot, i) => {
+    if (i === index) {
+      dot.style.background = 'var(--gold)';
+      dot.style.transform = 'scale(1.2)';
+    } else {
+      dot.style.background = 'rgba(255,255,255,0.2)';
+      dot.style.transform = 'scale(1)';
+    }
+  });
 }

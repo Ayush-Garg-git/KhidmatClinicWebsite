@@ -125,7 +125,7 @@ function initNavigation() {
     const target = document.getElementById('page-' + id);
     if (!target) return;
 
-    if (pushState) history.pushState({ page: id }, '', '#' + id);
+    if (pushState) history.pushState({ page: id }, '', window.location.pathname);
 
     if (overlay) overlay.classList.add('active');
 
@@ -156,7 +156,7 @@ function initNavigation() {
   });
 
   // Set initial history state
-  history.replaceState({ page: 'home' }, '', '#home');
+  history.replaceState({ page: 'home' }, '', window.location.pathname);
 }
 
 /* ---------------------------------------------------------

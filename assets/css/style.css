@@ -1234,3 +1234,124 @@ body {
   stroke: var(--gold-lt);
 }
 
+/* ---------------------------------------------------------
+   GOOGLE BUSINESS REVIEWS BADGE
+--------------------------------------------------------- */
+.google-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.6rem 1rem;
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  margin-top: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  text-decoration: none !important;
+  color: inherit !important;
+}
+.google-badge:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--gold-lt);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.gb-logo {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gb-content {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.gb-stars {
+  color: #fbca13;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+.gb-text {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.gb-count {
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* Floating Badge */
+.floating-reviews {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 1000;
+  background: var(--forest);
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+  border-radius: 16px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: float 4s ease-in-out infinite;
+}
+.floating-reviews:hover {
+  transform: scale(1.05) translateY(-5px);
+  border-color: var(--gold);
+}
+.fr-icon {
+  width: 36px;
+  height: 36px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.fr-icon img {
+  width: 20px;
+}
+.fr-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.fr-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.fr-sub {
+  font-size: 0.65rem;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.fr-stars {
+  color: #fbca13;
+}
+
+@media (max-width: 768px) {
+  .floating-reviews {
+    bottom: 1.5rem;
+    left: 1.5rem;
+    padding: 0.6rem 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .floating-reviews {
+    display: none; /* Hide on very small screens to avoid clutter */
+  }
+}

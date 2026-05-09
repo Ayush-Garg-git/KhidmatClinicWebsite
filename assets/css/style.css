@@ -1280,10 +1280,11 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--white);
+  border: 1px solid var(--border-lt);
   padding: 0.6rem 1rem;
   border-radius: 100px;
+  box-shadow: 0 4px 15px rgba(11, 61, 46, 0.05);
   backdrop-filter: blur(10px);
   margin-top: 1.5rem;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -1315,13 +1316,13 @@ body {
 }
 .gb-text {
   font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--muted);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 .gb-count {
-  color: var(--white);
+  color: var(--forest);
   font-weight: 600;
 }
 

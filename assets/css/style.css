@@ -1213,10 +1213,11 @@ body {
   .hero-actions { flex-direction: column; align-items: center; }
   .hero-actions .btn { width: 100%; justify-content: center; max-width: 280px; }
   .hero-right { min-height: 320px; }
-  .ph { padding: 2.5rem 0 4.5rem; text-align: left; }
+  .ph { padding: 2.5rem 0 6rem; text-align: left; }
+  .ph::after { height: 32px; clip-path: ellipse(60% 100% at 50% 100%); }
+  .ph h1 { font-size: 2.4rem; line-height: 1.1; margin-bottom: 0.75rem; position: relative; display: inline-block; }
+  .ph p { font-size: 0.9rem; line-height: 1.55; max-width: 100%; opacity: 0.8; margin-top: 1rem; margin-bottom: 1rem; }
 
-  .ph h1 { font-size: 2.5rem; line-height: 1.1; margin-bottom: 1rem; position: relative; display: inline-block; }
-  .ph p { font-size: 0.92rem; line-height: 1.6; max-width: 100%; opacity: 0.75; margin-top: 1.2rem; }
 
 
   .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }

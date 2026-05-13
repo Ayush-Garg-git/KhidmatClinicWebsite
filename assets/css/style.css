@@ -1213,7 +1213,8 @@ body {
   .hero-actions { flex-direction: column; align-items: center; }
   .hero-actions .btn { width: 100%; justify-content: center; max-width: 280px; }
   .hero-right { min-height: 320px; }
-  .ph { padding: 2.5rem 0 1.5rem; text-align: left; }
+  .ph { padding: 2.5rem 0 4.5rem; text-align: left; }
+
   .ph h1 { font-size: 2.5rem; line-height: 1.1; margin-bottom: 1rem; position: relative; display: inline-block; }
   .ph p { font-size: 0.92rem; line-height: 1.6; max-width: 100%; opacity: 0.75; margin-top: 1.2rem; }
 

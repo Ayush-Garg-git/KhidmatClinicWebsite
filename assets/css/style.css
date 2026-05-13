@@ -222,6 +222,53 @@ body:hover .cursor { opacity: 1; }
 .hero-spec { font-size: .88rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; }
 .hero-qual { font-size: .76rem; color: var(--muted-lt); margin-bottom: 2.5rem; letter-spacing: .02em; }
 .hero-actions { display: flex; gap: .9rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+
+/* ── DOCTOR NAME IDENTITY CARD ──────────────────────────── */
+.hero-name-block {
+  margin: 1.5rem 0 1.5rem;
+}
+.hero-name-card {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  background: linear-gradient(135deg, var(--forest) 0%, var(--ink-mid) 100%);
+  border: 1px solid rgba(184, 136, 42, 0.3);
+  border-radius: 14px;
+  padding: .85rem 1.4rem .9rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(11, 61, 46, .18);
+}
+.hero-name-card::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--gold), var(--gold-lt));
+  border-radius: 3px 0 0 3px;
+}
+.hero-name-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--gold-lt);
+  opacity: .85;
+}
+.hero-name-display {
+  font-family: var(--ff-d);
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  font-weight: 400; line-height: 1.1;
+  color: rgba(255, 255, 255, .95);
+  letter-spacing: .01em;
+}
+.hero-name-display em {
+  font-style: italic;
+  color: var(--gold-lt);
+  -webkit-text-fill-color: var(--gold-lt);
+}
+.hero-name-md {
+  font-size: .62rem; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(255, 255, 255, .45);
+  margin-top: 2px;
+}
+/* ─────────────────────────────────────────────────────────── */
 .hero-stats {
   display: grid; grid-template-columns: repeat(3, 1fr);
   background: var(--white); border-radius: 18px; border: 1px solid var(--border-lt);
@@ -772,8 +819,17 @@ footer { background: var(--ink); color: rgba(255, 255, 255, .5); padding: 4rem 0
 .f-brand-desc { font-size: .78rem; line-height: 1.8; opacity: .5; }
 .f-col h4 { font-size: .65rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--white); margin-bottom: 1rem; }
 .f-links { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-.f-links a { font-size: .78rem; color: rgba(255, 255, 255, .42); cursor: pointer; transition: color .2s, padding .2s; }
+.f-links a { font-size: .78rem; color: rgba(255, 255, 255, .42); cursor: pointer; transition: color .2s, padding .2s; position: relative; }
 .f-links a:hover { color: var(--white); padding-left: 6px; }
+
+/* Clinical Expertise treatment */
+.f-expertise-item { display: flex; flex-direction: column; gap: 1px; }
+.f-expertise-label { 
+  font-size: .55rem; font-weight: 700; letter-spacing: .12em; 
+  text-transform: uppercase; color: var(--gold-lt); 
+  display: flex; align-items: center; gap: 5px; margin-top: 2px;
+}
+.f-expertise-label::before { content: '✦'; font-size: .65rem; }
 .f-ci { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: rgba(255, 255, 255, .42); margin-bottom: 7px; transition: color .2s; }
 .f-ci:hover { color: rgba(255, 255, 255, .8); }
 .f-bottom { padding-top: 1.75rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; font-size: .7rem; opacity: .32; }
@@ -1078,6 +1134,7 @@ body {
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .hero-left { padding: 3rem 0 2rem; text-align: center; }
   .hero-pre { justify-content: center; }
+  .hero-name-block { display: flex; justify-content: center; }
   .hero-actions { justify-content: center; }
   .hero-stats { width: 100%; max-width: 100%; margin: 0 auto; }
   .hero-right { min-height: 400px; }
@@ -1125,7 +1182,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .hero-title { font-size: clamp(2.4rem, 9vw, 3.2rem); }
+  .hero-name-display { font-size: clamp(1.4rem, 6vw, 1.8rem); }
   .hero-actions { flex-direction: column; align-items: center; }
   .hero-actions .btn { width: 100%; justify-content: center; max-width: 280px; }
   .hero-right { min-height: 320px; }

@@ -41,7 +41,7 @@ button { cursor: pointer; font-family: var(--ff-b); border: none; background: no
   transition: width .3s var(--spring), height .3s var(--spring), opacity .3s;
 }
 body:hover .cursor { opacity: 1; }
-@media (hover: none) { .cursor, .cursor-ring { display: none; } }
+@media (hover: none), (max-width: 768px) { .cursor, .cursor-ring { display: none !important; } }
 
 /* ---------------------------------------------------------
    PAGE SYSTEM

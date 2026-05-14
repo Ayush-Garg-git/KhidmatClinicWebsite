@@ -28,6 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
 function initCursor() {
   const cursor = document.querySelector('.cursor');
   const ring = document.querySelector('.cursor-ring');
+  
+  // Strictly prevent cursor on mobile/touch devices
+  if (window.matchMedia('(hover:none)').matches || 
+      window.matchMedia('(pointer:coarse)').matches || 
+      window.innerWidth <= 768) {
+    if (cursor) cursor.remove();
+    if (ring) ring.remove();
+    return;
+  }
+
   if (!cursor || !ring) return;
 
   let mouseX = 0, mouseY = 0;
@@ -253,13 +263,7 @@ function initFAQ() {
     }
   });
 }
-// Prevent cursor on touch devices
-if (window.matchMedia('(hover:none)').matches) {
-  const cursor = document.querySelector('.cursor');
-  const ring = document.querySelector('.cursor-ring');
-  if (cursor) cursor.remove();
-  if (ring) ring.remove();
-}
+
 
 /* ---------------------------------------------------------
    LIKE SYSTEM
